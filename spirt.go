@@ -10,12 +10,39 @@ import (
 	"math/rand"
 	"os"
 	"strings"
+	"strconv"
 	"time"
 )
 
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
-	file, err := os.Open("belief.txt")
+	
+	var f string
+	var n int
+	
+	if len(os.Args) == 1 {
+		fmt.Println("Usage: " + os.Args[0] + " file [n]")
+	} else if len(os.Args) == 2 {
+		f = os.Args[1]
+		n = 1
+	} else {
+		f = os.Args[1]
+		var err error
+		n, err = strconv.Atoi(os.Args[2])
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+	for i := 1; i <= n; i++ {
+		spirt(f)
+		if i <= n-1 {
+			print("\n")
+		}
+	}
+}
+
+func spirt(f string) {
+	file, err := os.Open(f)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -51,6 +78,4 @@ func main() {
 	}
 
 	fmt.Println(wordwrap.WrapString(spurt, uint(width)))
-
 }
-
