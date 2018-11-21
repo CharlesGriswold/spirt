@@ -34,14 +34,14 @@ func main() {
 		}
 	}
 	for i := 1; i <= n; i++ {
-		spirt(f)
+		do_stuff(f)
 		if i <= n-1 {
 			print("\n")
 		}
 	}
 }
 
-func spirt(f string) {
+func do_stuff(f string) {
 	file, err := os.Open(f)
 	if err != nil {
 		log.Fatal(err)
@@ -50,7 +50,7 @@ func spirt(f string) {
 
 	scanner := bufio.NewScanner(file)
 	var i int
-	var buf, phrase, spurt string
+	var buf, phrase, spirt string
 
 	// This is where the magic happens.
 	for scanner.Scan() {
@@ -60,7 +60,7 @@ func spirt(f string) {
 		}
 		i++
 		if buf == "␞" {
-			spurt += phrase
+			spirt += phrase
 			i = 0
 			phrase = ""
 		} else if rand.Intn(i) == 0 {
@@ -70,12 +70,13 @@ func spirt(f string) {
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
-	spurt += phrase
+	spirt += phrase
 
 	width, _, err := terminal.GetSize(0)
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println(wordwrap.WrapString(spurt, uint(width)))
+	spirt = strings.Replace(spirt, "\\n", "\n", -1)
+	fmt.Println(wordwrap.WrapString(spirt, uint(width)))
 }
