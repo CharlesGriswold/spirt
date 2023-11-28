@@ -1,4 +1,4 @@
-module spirt
+module github.com/CharlesGriswold/spirt
 
 go 1.18
 
